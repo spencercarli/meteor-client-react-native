@@ -7,3 +7,5 @@
 - Connected to meteor server following https://github.com/aleclarson/meteor-client#usage
 - Ran `npm install aleclarson/mongo#1.1.1 --save` in rnApp directory
 - Initialize connection following https://github.com/aleclarson/mongo#usage
+- Ran `meteor remove autopublish insecure` in meteorApp
+- Updated meteor app to display items. Setup pub/sub

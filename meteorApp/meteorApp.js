@@ -1,23 +1,26 @@
+Items = new Mongo.Collection('items');
+
 if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+  Meteor.subscribe('items');
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
-    }
-  });
-
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.items.helpers({
+    items: function () {
+      return Items.find();
     }
   });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
-    // code to run on server at startup
+    if (Items.find().count() === 0) {
+      console.log('Seeding DB');
+      for (i = 0; i < 50; i++) {
+        Items.insert({name: 'Todo item ' + i});
+      }
+    }
+  });
+
+  Meteor.publish('items', function() {
+    return Items.find();
   });
 }
