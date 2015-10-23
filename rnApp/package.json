@@ -7,6 +7,8 @@
     "ios": "open ios/rnApp.xcodeproj && npm start"
   },
   "dependencies": {
+    "ddp": "aleclarson/ddp#1.2.0",
+    "meteor-client": "aleclarson/meteor-client#1.1.7",
     "react-native": "^0.12.0"
   }
 }

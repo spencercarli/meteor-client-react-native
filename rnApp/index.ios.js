@@ -12,7 +12,18 @@ var {
   View,
 } = React;
 
+var Meteor = require('meteor-client');
+
+// This implements `Meteor.connect`
+require('ddp');
+
 var rnApp = React.createClass({
+  componentWillMount() {
+    console.log('will mount');
+    // Replace 'localhost' with your local ip address
+    Meteor.connect('ws://localhost:3000/websocket');
+  },
+
   render: function() {
     return (
       <View style={styles.container}>
