@@ -12,6 +12,7 @@ let {
 let Meteor = require('meteor-client');
 require('ddp');
 var Mongo = require('mongo');
+let Tracker = require('tracker');
 
 let Layout = React.createClass({
   getInitialState() {
@@ -27,11 +28,12 @@ let Layout = React.createClass({
     Meteor.connect('ws://localhost:3000/websocket');
 
     let items = new Mongo.Collection('items')
-    Meteor.subscribe('items', {
-      onReady() {
-        self.setState({items: items.find()});
-      }
+
+    Tracker.autorun(() => {
+      self.setState({items: items.find()});
     });
+
+    Meteor.subscribe('items');
   },
 
   renderAddItem() {
