@@ -1,7 +1,13 @@
 'use strict';
 
 let React = require('react-native');
-let { View, Text, ScrollView, StyleSheet } = require('react-native');
+let {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity
+} = require('react-native');
 
 let Meteor = require('meteor-client');
 require('ddp');
@@ -28,6 +34,18 @@ let Layout = React.createClass({
     });
   },
 
+  renderAddItem() {
+    return (
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          Meteor.call('Items.insert', `new item ${Math.floor(Math.random() * 10)}!`);
+        }}>
+        <Text>Add an Item</Text>
+      </TouchableOpacity>
+    )
+  },
+
   renderItems() {
     let items = this.state.items.map((item) => {
       return (
@@ -43,6 +61,7 @@ let Layout = React.createClass({
     return (
       <View style={styles.container}>
         <ScrollView>
+          {this.renderAddItem()}
           {this.renderItems()}
         </ScrollView>
       </View>
@@ -58,6 +77,12 @@ let styles = StyleSheet.create({
   },
   row: {
     paddingVertical: 10
+  },
+  button: {
+    backgroundColor: 'red',
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 

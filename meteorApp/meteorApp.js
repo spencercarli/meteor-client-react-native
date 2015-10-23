@@ -1,5 +1,11 @@
 Items = new Mongo.Collection('items');
 
+Meteor.methods({
+  'Items.insert': function(name) {
+    return Items.insert({name: name});
+  }
+});
+
 if (Meteor.isClient) {
   Meteor.subscribe('items');
 
@@ -14,7 +20,7 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     if (Items.find().count() === 0) {
       console.log('Seeding DB');
-      for (i = 0; i < 50; i++) {
+      for (i = 0; i < 10; i++) {
         Items.insert({name: 'Todo item ' + i});
       }
     }
