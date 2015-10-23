@@ -13,15 +13,23 @@ var {
 } = React;
 
 var Meteor = require('meteor-client');
-
+var Mongo = require('mongo');
 // This implements `Meteor.connect`
 require('ddp');
 
 var rnApp = React.createClass({
   componentWillMount() {
-    console.log('will mount');
     // Replace 'localhost' with your local ip address
     Meteor.connect('ws://localhost:3000/websocket');
+
+    var collection = new Mongo.Collection('users', {
+      connection: Meteor.connection,        // The DDP connection to use (defaults to Meteor.connection)
+      autoPublish: false,                   // Used in place of "meteor/autopublish"
+      insecure: false,                      // Used in place of "meteor/insecure"
+      idGeneration: 'MONGO',                // The method of generating the `_id` fields of new documents in this collection (defaults to 'STRING')
+      transform: function () { /* ... */ }, // Function that is passed the results of `fetch()` or `findOne()`
+    });
+    console.log(collection.find().fetch());
   },
 
   render: function() {
