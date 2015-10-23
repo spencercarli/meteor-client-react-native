@@ -1,3 +1,13 @@
+Playing around with [meteor-client](https://github.com/aleclarson/meteor-client).
+
+# Running
+
+You'll need two terminal windows.
+
+- From root of repo in terminal 1 `cd meterApp && meteor`.
+- From root of repo in terminal 2 `cd rnApp && npm run ios`.
+- Press play in Xcode and cross fingers that things don't explode
+
 # Process
 
 - Ran `meteor create meteorApp`
